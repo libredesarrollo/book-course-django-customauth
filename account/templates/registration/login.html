@@ -1,0 +1,45 @@
+{% extends "base_user_account.html" %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="card mt-5">
+
+    <div class="card-header">
+        <h4>Login</h4>
+    </div>
+
+    <div class="card-body">
+        {% if next %}
+            <div class="alert alert-warning">
+                If you want to access {{ next }} authenticate!
+            </div>
+        {% endif %}
+
+        {% if form.errors %}
+          {% include "partials/alert.html" with message="Username and/or password is incorrect" tag="danger"%}
+        {% endif %}
+
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+
+           <div class="mb-3">
+                {{ form.username|add_label_class:"form-label"  }}
+                {{ form.username|add_class:"form-control" }}
+           </div>
+
+            <div class="mb-3">
+                {{ form.password|add_label_class:"form-label"  }}
+                {{ form.password|add_class:"form-control" }}
+            </div>
+
+            <div class="d-grid">
+                <input type="submit" value="Send" class="btn btn-primary">
+            </div>
+        </form>
+
+        <a class="float-end mt-3" href="{% url 'password_reset' %}">Forged Password?</a>
+    </div>
+</div>
+{% endblock %}

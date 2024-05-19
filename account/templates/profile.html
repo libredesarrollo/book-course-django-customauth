@@ -1,0 +1,74 @@
+{% extends "base_user_account.html" %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
+{% if userprofile %}
+    <img src="{{ userprofile.avatar.url }}" class="rounded-circle m-auto d-block" style="width: 75px;" alt="Avatar" />
+    <p class="text-center"><a target="_blank" href="{{ userprofile.avatar.url }}">Download {{ userprofile.avatar.name }}</a></p>
+{% endif %}
+
+<table class="table table-borderless">
+    <tbody>
+        <tr>
+            <th>User</th>
+            <td>{{ user.username }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ user.email }}</td>
+        </tr>
+        <tr>
+            <th>Authenticated</th>
+            <td>{{ user.is_authenticated }}</td>
+        </tr>
+        <tr>
+            <th>Anonymous</th>
+            <td>{{ user.is_anonymous }}</td>
+        </tr>
+        {% if userprofile %}
+            <tr>
+                <th>Avatar</th>
+                <td>
+                    <ul>
+                        <li>{{ userprofile.avatar.file}}</li>
+                        <li>{{ userprofile.avatar.url}}</li>
+                        <li>{{ userprofile.avatar.name}}</li>
+                    </ul>
+                </td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
+
+{% if form.errors %}
+<div class="alert alert-warning">
+    {{ form.errors }}
+</div>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mt-3">
+        {{ form.avatar|add_label_class:"form-label" }}
+        {{ form.avatar|add_class:"form-control" }}
+    </div>
+    <div class="mt-3">
+        {{ form.age|add_label_class:"form-label" }}
+        {{ form.age|add_class:"form-control" }}
+    </div>
+    <div class="mt-3">
+        {{ form.address|add_label_class:"form-label" }}
+        {{ form.address|add_class:"form-control" }}
+    </div>
+    <div class="mt-3">
+        {{ form.language|add_label_class:"form-label" }}
+        {{ form.language|add_class:"form-control" }}
+    </div>
+
+    {{ form.user }}
+    <button type="submit" class="mt-3 btn btn-primary">Send</button>
+</form>
+
+{% endblock %}

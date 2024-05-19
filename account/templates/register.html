@@ -1,0 +1,64 @@
+{% extends "base_user_account.html" %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+
+<div class="card mt-5">
+
+    <div class="card-header">
+        <h4>Register</h4>
+    </div>
+
+    <div class="card-body">
+
+        {% if form.errors %}
+            <div class="alert alert-warning">
+                {{ form.errors }}
+            </div>
+        {% endif %}
+
+        <form action="" method="post">
+            {% csrf_token %}
+
+            <div class="alert alert-info">
+                {{ form.username.help_text }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.username|add_label_class:"form-label" }}
+                {{ form.username|add_class:"form-control" }}
+            </div>
+
+            {% comment %} <div class="mb-3">
+                {{ form.email|add_label_class:"form-label" }}
+                {{ form.email|add_class:"form-control" }}
+            </div> {% endcomment %}
+
+            <div class="alert alert-info">
+                {{ form.password1.help_text }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.password1|add_label_class:"form-label" }}
+                {{ form.password1|add_class:"form-control" }}
+            </div>
+
+            <div class="alert alert-info">
+                {{ form.password2.help_text }}
+            </div>
+
+            <div class="mb-3">
+                {{ form.password2|add_label_class:"form-label" }}
+                {{ form.password2|add_class:"form-control" }}
+            </div>
+
+            <div class="d-grid">
+                <input type="submit" value="Send" class="btn btn-primary">
+            </div>
+        </form>
+
+        <a class="float-end mt-3" href="{% url 'login' %}">Login</a>
+    </div>
+</div>
+{% endblock %}

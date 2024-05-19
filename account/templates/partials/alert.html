@@ -1,0 +1,9 @@
+{% if message %}
+    <div class="alert {% if tag %}
+        alert-{{tag}}
+    {% else %}
+        alert-info
+    {% endif %}">
+        {{ message }}
+    </div>
+{% endif %}
